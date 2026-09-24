@@ -1,0 +1,60 @@
+[package]
+name = "repolaunch"
+version = "0.2.0"
+description = "RepoLaunch — install, jalankan, dan pantau repositori web lokal"
+edition = "2021"
+rust-version = "1.80"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# ── Shell aplikasi (UI WebView2, IPC, tray) ──
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-dialog = "2"            # file picker arsip
+tauri-plugin-opener = "2"            # buka link localhost di browser default
+tauri-plugin-single-instance = "2"   # satu instance saja (satu pemilik port & proses)
+tauri-winrt-notification = "0.7"     # toast Windows dengan tombol aksi (Ya/Tidak)
+
+# ── Core ──
+anyhow = "1"
+parking_lot = "0.12"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+url = "2"
+regex = "1"
+walkdir = "2"
+which = "7"                          # resolve npm → npm.cmd (PATHEXT)
+sysinfo = { version = "0.33", default-features = false, features = ["system"] }
+zip = { version = "2", default-features = false, features = ["deflate"] }
+tar = "0.4"
+flate2 = "1"
+tiny_http = "0.12"                   # server HTML statis bawaan
+mime_guess = "2"
+# Git clone pure Rust (tanpa binary `git`, tanpa shell; TLS via rustls).
+gix = { version = "0.70", default-features = false, features = [
+  "blocking-network-client",
+  "blocking-http-transport-reqwest-rust-tls",
+  "worktree-mutation",
+  "max-performance-safe",
+] }
+# Job Object API (isolasi & batas resource proses).
+windows-sys = { version = "0.59", features = [
+  "Win32_Foundation",
+  "Win32_Security",
+  "Win32_System_JobObjects",
+  "Win32_System_Threading",
+  "Win32_UI_Shell",          # SetCurrentProcessExplicitAppUserModelID, ExtractIconExW
+  "Win32_UI_WindowsAndMessaging", # WM_SETICON (ikon besar taskbar/Alt+Tab)
+] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3
+strip = true
+panic = "unwind"   # panic di satu thread (log reader/launcher) tidak menjatuhkan seluruh aplikasi

@@ -1,0 +1,219 @@
+/* Token warna (light/dark mengikuti tema Windows). */
+:root {
+  color-scheme: light;
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #eef0f5;
+  --border: #e1e4ec;
+  --text: #171a21;
+  --muted: #646b7a;
+  --primary: #4f46e5;
+  --primary-fg: #ffffff;
+  --ok: #16a34a;
+  --ok-bg: #dcfce7;
+  --ok-fg: #14532d;
+  --warn: #f59e0b;
+  --warn-bg: #fef3c7;
+  --warn-fg: #78350f;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-fg: #7f1d1d;
+  --info-bg: #e0e7ff;
+  --info-fg: #312e81;
+  --inverse-bg: #1f2330;
+  --inverse-fg: #f3f4f8;
+  --code-bg: #0f1117;
+  --code-fg: #d6dae4;
+  --code-accent: #8b93ff;
+  --shadow-sm: 0 1px 2px rgb(15 17 23 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(15 17 23 / 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0f1117;
+    --surface: #171a23;
+    --surface-2: #222634;
+    --border: #2a2f3d;
+    --text: #e8eaf0;
+    --muted: #9aa1b2;
+    --primary: #818cf8;
+    --primary-fg: #0f1117;
+    --ok: #22c55e;
+    --ok-bg: #0f2e1b;
+    --ok-fg: #86efac;
+    --warn: #fbbf24;
+    --warn-bg: #3a2a07;
+    --warn-fg: #fde68a;
+    --danger: #f87171;
+    --danger-bg: #3b1212;
+    --danger-fg: #fecaca;
+    --info-bg: #1e1f4a;
+    --info-fg: #c7d2fe;
+    --inverse-bg: #e8eaf0;
+    --inverse-fg: #171a21;
+    --code-bg: #0a0c11;
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Rasa aplikasi desktop: teks UI tidak ter-select saat klik, kecuali input & log. */
+body {
+  user-select: none;
+}
+input,
+textarea,
+code {
+  user-select: text;
+}
+
+button {
+  font: inherit;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.12s, background 0.12s;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.btn.small {
+  padding: 5px 10px;
+  font-size: 0.82rem;
+}
+.btn.primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+.btn.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+.btn.tonal {
+  background: var(--info-bg);
+  color: var(--info-fg);
+}
+.btn.outline {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+.btn.outline:hover:not(:disabled),
+.btn.ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+.btn.ghost {
+  background: none;
+  color: var(--text);
+}
+.btn.ghost.danger {
+  color: var(--danger);
+}
+.btn.danger-solid {
+  background: var(--danger);
+  color: #fff;
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field > span {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+input:not([type='checkbox']):not([type='range']),
+select {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+small.error,
+.error {
+  color: var(--danger);
+}
+.muted {
+  color: var(--muted);
+}
+
+.spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--surface-2);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.spinner.small {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+  border-top-color: currentColor;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+  background: var(--border);
+}

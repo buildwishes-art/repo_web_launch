@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Izin minimum untuk jendela utama. Command aplikasi (commands.rs) diizinkan secara default; dari plugin hanya dialog 'open' (pilih arsip). Membuka URL dilakukan di Rust (open_repo_url) hanya untuk link localhost milik repo yang berjalan.",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:allow-open"]
+}

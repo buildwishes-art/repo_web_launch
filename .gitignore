@@ -1,0 +1,15 @@
+# Frontend
+node_modules/
+dist/
+*.log
+
+# Rust / Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# Hasil build (installer & exe) — dibagikan lewat GitHub Releases, bukan di-commit
+release/
+
+# Editor
+.idea/
+.vscode/
